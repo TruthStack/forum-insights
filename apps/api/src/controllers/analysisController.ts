@@ -1,37 +1,37 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { orchestrateAnalysis } from "../orchestrator";
 
+type AnalyzeRequestBody = {
+  url: string;
+};
+
 export async function handleAnalysisRequest(
-  request: FastifyRequest,
+  request: FastifyRequest<{ Body: AnalyzeRequestBody }>,
   reply: FastifyReply
 ) {
   try {
-    const body = request.body as any;
+    const { url } = request.body;
 
-    if (!body || typeof body.url !== "string") {
+    if (!url || typeof url !== "string") {
       return reply.status(400).send({
-        error_code: "INVALID_REQUEST",
-        message: "Missing or invalid \"url\" field"
+        error: "Invalid or missing URL"
       });
     }
 
-    const requestId = crypto.randomUUID();
+    console.log("📨 Processing request for:", url);
 
-    // Call orchestrator
     const result = await orchestrateAnalysis({
-      request_id: requestId,
-      url: body.url
+      request_id: `req_${Date.now()}`,
+      url
     });
 
-    return reply.status(200).send({
-      request_id: requestId,
-      accepted: true,
-      result: result.result
-    });
-  } catch (err) {
+    return reply.status(200).send(result);
+  } catch (error: any) {
+    console.error("❌ Controller error:", error);
+
     return reply.status(500).send({
-      error_code: "INTERNAL_ERROR",
-      message: "Unexpected server error"
+      error: "Analysis service temporarily unavailable",
+      message: error?.message ?? "Unknown error"
     });
   }
 }

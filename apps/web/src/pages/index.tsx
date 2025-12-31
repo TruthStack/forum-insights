@@ -1,110 +1,132 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+interface Insight {
+  text: string;
+  score: number;
+  type: string;
+}
+
+interface AnalysisResult {
+  version: string;
+  summary: string;
+  sentiment: string;
+  topics: string[];
+  insights: Insight[];
+  confidence: number;
+  metadata: {
+    thread_title: string;
+    post_count: number;
+    source: string;
+    ai_provider: string;
+    analyzed_at: string;
+  };
+}
+
+interface ApiResponse {
+  request_id: string;
+  result: AnalysisResult;
+  integration_status?: {
+    forums_api: string;
+    architecture: string;
+  };
+}
 
 export default function Home() {
-  const [url, setUrl] = useState('https://foru.ms/thread/demo');
+  const [url, setUrl] = useState('https://foru.ms/thread/ai-tools-2025');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [apiStatus, setApiStatus] = useState<'checking' | 'live' | 'demo'>('checking');
+
+  useEffect(() => {
+    checkAPIStatus();
+  }, []);
+
+  const checkAPIStatus = async () => {
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: 'https://foru.ms/thread/test' })
+      });
+      const data = await res.json();
+      setApiStatus(data?.integration_status?.forums_api === 'live' ? 'live' : 'demo');
+    } catch {
+      setApiStatus('demo');
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    
+
     try {
-      const response = await fetch('api/analyze', {
+      const res = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url })
       });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setResult(data);
-      } else {
-        setError(data.message || 'Analysis failed');
-      }
-    } catch (error) {
-      setError('Network error - Make sure API server is running on port 3000');
-      console.error('Error:', error);
+
+      const data: ApiResponse = await res.json();
+
+      if (!res.ok) throw new Error(data as any);
+
+      setResult(data);
+      setApiStatus(data.integration_status?.forums_api === 'live' ? 'live' : 'demo');
+    } catch (err) {
+      setError('Failed to analyze thread');
     } finally {
       setLoading(false);
     }
   };
 
+  const sentimentColor = (s: string) =>
+    s === 'positive' ? '#10b981' : s === 'negative' ? '#ef4444' : '#6b7280';
+
   return (
-    <div style={{ padding: 40, fontFamily: 'sans-serif' }}>
+    <div style={{ padding: 40, maxWidth: 1200, margin: '0 auto', fontFamily: 'system-ui' }}>
       <h1>🤖 Forum Insights AI</h1>
-      <p>Paste a forum thread URL to get AI-powered insights (Hackathon Demo)</p>
-      
-      <form onSubmit={handleSubmit} style={{ marginTop: 20 }}>
-        <input 
-          type="url" 
-          placeholder="https://foru.ms/thread/123"
+
+      <form onSubmit={handleSubmit}>
+        <input
           value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          style={{ padding: 10, width: 400, fontSize: 16 }}
-          required
+          onChange={e => setUrl(e.target.value)}
+          style={{ padding: 12, width: '70%' }}
         />
-        <button 
-          type="submit"
-          style={{ 
-            padding: '10px 20px', 
-            marginLeft: 10,
-            fontSize: 16,
-            background: loading ? '#ccc' : '#0070f3',
-            color: 'white',
-            border: 'none',
-            borderRadius: 5,
-            cursor: loading ? 'not-allowed' : 'pointer'
-          }}
-          disabled={loading}
-        >
+        <button disabled={loading} style={{ marginLeft: 10 }}>
           {loading ? 'Analyzing...' : 'Analyze'}
         </button>
       </form>
-      
-      {error && (
-        <div style={{ 
-          background: '#ffebee', 
-          padding: 15, 
-          borderRadius: 6,
-          marginTop: 20,
-          color: '#c62828'
-        }}>
-          <strong>Error:</strong> {error}
-        </div>
-      )}
-      
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       {result && (
-        <div style={{ marginTop: 40 }}>
-          <h2>Results</h2>
-          <div style={{ background: '#f5f5f5', padding: 20, borderRadius: 8 }}>
-            <h3>Summary:</h3>
-            <pre style={{ 
-              background: 'white', 
-              padding: 15, 
-              borderRadius: 5,
-              overflow: 'auto',
-              whiteSpace: 'pre-wrap'
-            }}>
-              {JSON.stringify(result, null, 2)}
-            </pre>
-          </div>
-        </div>
+        <>
+          <h2>Analysis Result</h2>
+
+          <p><b>Confidence:</b> {Math.round(result.result.confidence * 100)}%</p>
+          <p><b>Sentiment:</b> {result.result.sentiment}</p>
+          <p><b>Summary:</b> {result.result.summary}</p>
+
+          <h3>Topics</h3>
+          <ul>
+            {result.result.topics.map((t, i) => (
+              <li key={i}>{t}</li>
+            ))}
+          </ul>
+
+          <h3>Insights</h3>
+          {result.result.insights.map((i, idx) => (
+            <div key={idx}>
+              <b>{i.text}</b> — {Math.round(i.score * 100)}%
+            </div>
+          ))}
+
+          <h3>Metadata</h3>
+          <pre>{JSON.stringify(result.result.metadata, null, 2)}</pre>
+        </>
       )}
-      
-      <div style={{ marginTop: 40, color: '#666' }}>
-        <h3>Foru.ms x Vercel Hackathon Demo</h3>
-        <ul>
-          <li>✅ Modular architecture implemented</li>
-          <li>✅ API Gateway with validation</li>
-          <li>✅ Mock AI analysis working</li>
-          <li>✅ Ready for real Foru.ms API integration</li>
-          <li>✅ Ready for real OpenAI integration</li>
-        </ul>
-      </div>
     </div>
   );
 }
