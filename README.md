@@ -2,19 +2,24 @@
 
 <div align="center">
 
-![TL;DR Bot Banner](https://img.shields.io/badge/Foru.ms_Hackathon-Winner_Level_Submission-1E40AF?style=for-the-badge)
-![AI-Powered](https://img.shields.io/badge/AI_Summarization-95%25_Accuracy-10B981?style=for-the-badge)
-![Deployment](https://img.shields.io/badge/One_Click_Deploy-Vercel_Ready-000000?style=for-the-badge&logo=vercel)
-![License](https://img.shields.io/badge/License-MIT-8B5CF6?style=for-the-badge)
+<div align="center">
 
-**Revolutionizing forum management with AI-powered thread summarization, real-time trend detection, and proactive moderation alerts.**
+![TL;DR Bot Banner](https://img.shields.io/badge/TL;DR_Bot-Forum_Summarization-1E40AF)
+![Foru.ms Hackathon](https://img.shields.io/badge/Foru.ms-x_v0_Hackathon-7C3AED)
+![Built in 48 Hours](https://img.shields.io/badge/Built_in-48_Hours-10B981)
+![AI Powered](https://img.shields.io/badge/AI-Gemini_2.0-FF6B35)
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Click_Here-1E40AF?style=for-the-badge)](https://forum-insights-tldr-bot.vercel.app)
-[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
-[![Foru.ms API](https://img.shields.io/badge/Engine-Foru.ms_API-7C3AED?style=for-the-badge)](https://foru.ms)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-000000?logo=vercel&logoColor=white)](https://forum-insights-tldr-bot.vercel.app)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-181717?logo=github)](https://github.com/TruthStack/forum-insights)
+[![Devpost Submission](https://img.shields.io/badge/Devpost-Submission-003E54?logo=devpost)](https://devpost.com/software/forum-insights-tldr-bot)
+[![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)](https://python.org)
+[![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io)
+
+**AI-Powered Thread Summarization • Real-Time Trend Detection • Proactive Moderator Alerts**
 
 </div>
+
+
 
 ---
 
@@ -36,7 +41,7 @@ streamlit run demo.py
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FTruthStack%2Fforum-insights)
 
 **📹 Watch Demo:**
-[![Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/demo-link)
+[![Demo Video](https://img.shields.io/badge/YouTube-Demo_Video-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtu.be/19EMceJbUPQ)
 
 </td>
 <td width="50%">
@@ -541,7 +546,7 @@ We welcome contributions! Here's how you can help:
 ```bash
 # 1. Fork the repository
 # 2. Clone your fork
-git clone https://github.com/your-username/forum-insights.git
+git clone https://github.com/TRUTHSTACK/forum-insights.git
 
 # 3. Create feature branch
 git checkout -b feature/amazing-feature
@@ -570,30 +575,6 @@ git push origin feature/amazing-feature
 ## 📄 **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-```
-MIT License
-
-Copyright (c) 2026 TruthStack
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-```
 
 ---
 
