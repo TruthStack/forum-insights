@@ -91,7 +91,7 @@ Forums are drowning in information overload. A single technical discussion can s
 3. **🚨 Send Proactive Alerts** – Notify moderators about concerning patterns
 4. **📚 Provide Historical Context** – Match with similar past discussions
 
-**Built for the Foru.ms x v0 Hackathon** under the theme: *"We built the engine. You build the car!"* – We took the Foru.ms API and built an intelligent, autonomous moderation system.
+
 
 ---
 
