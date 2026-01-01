@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { orchestrateAnalysis } from "../orchestrator";
-
+const BASE_URL = process.env.FORUMS_BASE_URL;
+const API_KEY = process.env.FORUMS_API_KEY;
 type AnalyzeRequestBody = {
   url: string;
 };

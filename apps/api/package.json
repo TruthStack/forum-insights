@@ -9,6 +9,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "fastify": "^4.24.0",
     "openai": "^6.15.0",
     "zod": "^3.22.0"

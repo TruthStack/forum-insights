@@ -1,0 +1,16 @@
+find . \
+-type f \
+! -path "./node_modules/*" \
+! -path "./.git/*" \
+! -path "./dist/*" \
+! -path "./build/*" \
+! -path "./out/*" \
+! -path "./.next/*" \
+! -path "./coverage/*" \
+! -name "*.lock" \
+! -name "package-lock.json" \
+! -name "yarn.lock" \
+! -name "pnpm-lock.yaml" \
+! -name "*.log" \
+-exec sh -c 'echo "\n\n===== FILE: {} =====\n"; cat "{}"' \; \
+> project_code.txt

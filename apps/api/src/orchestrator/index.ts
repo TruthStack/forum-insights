@@ -1,5 +1,6 @@
 import { fetchForumsThread } from "../modules/ingestion/forums";
-
+const BASE_URL = process.env.FORUMS_BASE_URL;
+const API_KEY = process.env.FORUMS_API_KEY;
 type OrchestrateInput = {
   request_id: string;
   url: string;
@@ -38,7 +39,7 @@ export async function orchestrateAnalysis(
 
   // ✅ SAFE DISCRIMINATED UNION CHECK
   if (!forumResult.success) {
-    throw new Error(forumResult.error);
+    throw new Error("some problem");
   }
 
   const thread = forumResult.data.thread;
